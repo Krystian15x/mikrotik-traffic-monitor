@@ -1,0 +1,101 @@
+THIRD-PARTY SOFTWARE NOTICES
+
+This project includes third-party software components.
+
+================================================================================
+BACKEND COMPONENTS
+================================================================================
+
+1. FastAPI
+   Version: Latest (as per requirements.txt)
+   License: MIT
+   Description: A modern, fast web framework for building APIs with Python 3.7+ based on standard Python type hints.
+   Source: https://github.com/tiangolo/fastapi
+
+2. Uvicorn
+   Version: Latest (as per requirements.txt)
+   License: BSD
+   Description: An ASGI web server implementation for Python.
+   Source: https://github.com/encode/uvicorn
+
+3. python-jose
+   Version: Latest (as per requirements.txt)
+   License: MIT
+   Description: A library for JSON Web Token (JWT) encoding and decoding.
+   Source: https://github.com/mpdavis/python-jose
+
+4. Pydantic
+   Version: Latest (as per requirements.txt)
+   License: MIT
+   Description: Data validation and settings management using Python type annotations.
+   Source: https://github.com/pydantic/pydantic
+
+5. pydantic-settings
+   Version: Latest (as per requirements.txt)
+   License: MIT
+   Description: Settings management for Pydantic models.
+   Source: https://github.com/pydantic/pydantic-settings
+
+6. SQLAlchemy
+   Version: Latest (as per requirements.txt)
+   License: MIT
+   Description: The Python SQL toolkit and Object Relational Mapper.
+   Source: https://github.com/sqlalchemy/sqlalchemy
+
+7. routeros-api
+   Version: Latest (as per requirements.txt)
+   License: MIT
+   Description: Python library for interacting with MikroTik RouterOS API.
+   Source: https://github.com/socialwifi/routeros-api
+
+8. APScheduler
+   Version: Latest (as per requirements.txt)
+   License: MIT
+   Description: In-process task scheduler with Cron-like capabilities.
+   Source: https://github.com/agronholm/apscheduler
+
+9. Jinja2
+   Version: Latest (as per requirements.txt)
+   License: BSD
+   Description: A very fast and expressive template engine.
+   Source: https://github.com/pallets/jinja
+
+10. PyMySQL
+    Version: Latest (as per requirements.txt)
+    License: MIT
+    Description: Pure Python MySQL client library.
+    Source: https://github.com/PyMySQL/PyMySQL
+
+================================================================================
+FRONTEND COMPONENTS
+================================================================================
+
+1. Bootstrap
+   Version: 5.3.3
+   License: MIT
+   Description: The most popular HTML, CSS, and JS library in the world.
+   Source: https://getbootstrap.com/
+
+2. Bootstrap Icons
+   Version: 1.11.3
+   License: MIT
+   Description: Official open source SVG icon library for Bootstrap.
+   Source: https://icons.getbootstrap.com/
+
+3. Chart.js
+   Version: 4.4.4
+   License: MIT
+   Description: Simple yet flexible JavaScript charting library for designers & developers.
+   Source: https://www.chartjs.org/
+
+================================================================================
+LICENSE TEXTS
+================================================================================
+
+All third-party components listed above are licensed under the MIT License or BSD License, which are permissive open-source licenses. For full license texts, please refer to the respective project repositories or the following summaries:
+
+MIT License Summary:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+BSD License Summary (3-clause):
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.

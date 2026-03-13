@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="UTF-8">
+	<title>Wyciąg Danych LTE/5G</title>
+	<link href="{{ url_for('static', path='css/statement.css') }}" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		{% if no_data %}
+			<h2>Brak danych w wybranym okresie</h2>
+			<p>Proszę wybrać inny przedział czasowy.</p>
+		{% else %}
+			<div class="header">
+				<img src="{{ request.url_for('static', path='billing.png') }}" alt="Logo billingowe">
+				<h1>Wyciąg Danych LTE/5G</h1>
+				<p>Monitorowanie Ruchu Sieciowego</p>
+			</div>
+			<div class="period">
+				<p><strong>Okres:</strong> {{ time_range.start|datetimeformat('%Y-%m-%d %H:%M:%S') }} - {{ time_range.end|datetimeformat('%Y-%m-%d %H:%M:%S') }}</p>
+			</div>
+			<table>
+				<tr>
+					<th>Data i godzina</th>
+					<th>Pobrane</th>
+					<th>Wysłane</th>
+					<th>Pakiety RX</th>
+					<th>Pakiety TX</th>
+					<th>Pakiety Łącznie</th>
+				</tr>
+				{% for row in data_rows %}
+				<tr>
+					<td>{{ row.timestamp|datetimeformat('%Y-%m-%d %H:%M:%S') }}</td>
+					<td>{{ row.rx|bytes_to_human }}</td>
+					<td>{{ row.tx|bytes_to_human }}</td>
+					<td>{{ row.rx_packets }}</td>
+					<td>{{ row.tx_packets }}</td>
+					<td>{{ row.total_packets }}</td>
+				</tr>
+				{% endfor %}
+				<tr class="total-row">
+					<td>Całkowite zużycie</td>
+					<td>{{ total_rx|bytes_to_human }}</td>
+					<td>{{ total_tx|bytes_to_human }}</td>
+					<td>{{ total_rx_packets }}</td>
+					<td>{{ total_tx_packets }}</td>
+					<td>{{ total_packets }}</td>
+				</tr>
+			</table>
+			<div class="summary">
+				<p><strong>Podsumowanie:</strong></p>
+				<p>Całkowite pobrane: {{ total_rx|bytes_to_human }}</p>
+				<p>Całkowite wysłane: {{ total_tx|bytes_to_human }}</p>
+				<p>Łączne zużycie: {{ (total_rx + total_tx)|bytes_to_human }}</p>
+				<p>Całkowite pakiety RX: {{ total_rx_packets }}</p>
+				<p>Całkowite pakiety TX: {{ total_tx_packets }}</p>
+				<p>Całkowite pakiety łącznie: {{ total_packets }}</p>
+			</div>
+			<div class="footer">
+				<p>Wyciąg wygenerowany przez system Monitorowania Ruchu LTE/5G | {{ generated_at|datetimeformat('%Y-%m-%d %H:%M:%S') }}</p>
+			</div>
+			<div class="print-btn">
+				<button onclick="window.print()">Drukuj</button>
+			</div>
+		{% endif %}
+	</div>
+</body>
+</html>

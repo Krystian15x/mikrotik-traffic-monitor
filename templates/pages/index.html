@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<link href="{{ url_for('static', path='css/index.css') }}" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
+{% endblock %}
+
+{% block content %}
+	<div class="container py-4">
+		<h1 class="text-center mb-4"><i class="bi bi-wifi icon"></i>Monitorowanie Ruchu Sieciowego</h1>
+		<div class="row mb-4 g-3 position-relative" id="topStats">
+			<div class="loading-overlay" id="topStatsLoader"><div class="loader"></div></div>
+			<div class="col-md-3">
+				<div class="card stat-card bg-primary text-white">
+					<div class="card-body text-center">
+						<h5><i class="bi bi-clock-history icon"></i>Ostatnie 24 godziny</h5>
+						<h2 id="total24h"></h2>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card stat-card bg-success text-white">
+					<div class="card-body text-center">
+						<h5><i class="bi bi-download icon"></i>Pobrane</h5>
+						<h2 id="rx24h"></h2>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card stat-card bg-warning text-white">
+					<div class="card-body text-center">
+						<h5><i class="bi bi-upload icon"></i>Wysłane</h5>
+						<h2 id="tx24h"></h2>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card stat-card bg-info text-white">
+					<div class="card-body text-center">
+						<h5><i class="bi bi-speedometer2 icon"></i>Śr. Prędkość</h5>
+						<h2 id="speed24h"></h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="nav nav-tabs mb-4" id="periodTabs">
+			{% for period in periods %}
+			<li class="nav-item">
+				<a class="nav-link period-tab" data-period="{{ period }}" href="#">
+					{% if period == "all" %}{{ mapping["all"] }}
+					{% elif period.endswith("min") %}{{ period[:-3] }} {{ mapping["min"] }}
+					{% elif period.endswith("h") %}{{ period[:-1] }} {{ mapping["h"] }}
+					{% elif period.endswith("d") %}{{ period[:-1] }} {{ mapping["d"] }}
+					{% elif period.endswith("m") %}{{ period[:-1] }} {{ mapping["m"] }}
+					{% else %}{{ period }}{% endif %}
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+		<div class="card stat-card mb-4 position-relative">
+			<div class="loading-overlay" id="statsTableLoader"><div class="loader"></div></div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-striped table-hover" id="statsTable">
+						<thead><tr><th>Okres</th><th>Pobrano</th><th>Wysłano</th><th>Łączny ruch</th><th>Pakiety</th><th>Śr. Mbps</th></tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="card stat-card mb-4 position-relative">
+			<div class="loading-overlay" id="trafficChartLoader"><div class="loader"></div></div>
+			<div class="card-header"><h5><i class="bi bi-graph-up icon"></i>Ruch w Czasie</h5></div>
+			<div class="card-body chart-container"><canvas id="trafficChart"></canvas></div>
+		</div>
+		<div class="row g-3 mt-4">
+			<div class="col-md-6">
+				<div class="card stat-card position-relative">
+					<div class="loading-overlay" id="dailyChartLoader"><div class="loader"></div></div>
+					<div class="card-header"><h5><i class="bi bi-calendar-day icon"></i>Zużycie Dzienne</h5></div>
+					<div class="card-body chart-container" style="height: 250px;"><canvas id="dailyChart"></canvas></div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card stat-card position-relative">
+					<div class="loading-overlay" id="monthlyChartLoader"><div class="loader"></div></div>
+					<div class="card-header"><h5><i class="bi bi-calendar-month icon"></i>Zużycie Miesięczne</h5></div>
+					<div class="card-body chart-container" style="height: 250px;"><canvas id="monthlyChart"></canvas></div>
+				</div>
+			</div>
+		</div>
+		<div class="row g-3 mt-4 position-relative" id="totalStats">
+			<div class="loading-overlay" id="totalStatsLoader"><div class="loader"></div></div>
+			<div class="col-md-4">
+				<div class="card stat-card bg-secondary text-white">
+					<div class="card-body text-center">
+						<h6><i class="bi bi-download icon"></i>Łącznie Pobrane</h6>
+						<h3 id="totalRx"></h3>
+						<p>Średnio <span id="averageRxMbps"></span> Mbps</p>
+						<p><span id="totalRxCount"></span> pakietów</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card stat-card bg-secondary text-white">
+					<div class="card-body text-center">
+						<h6><i class="bi bi-upload icon"></i>Łącznie Wysłane</h6>
+						<h3 id="totalTx"></h3>
+						<p>Średnio <span id="averageTxMbps"></span> Mbps</p>
+						<p><span id="totalTxCount"></span> pakietów</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card stat-card bg-secondary text-white">
+					<div class="card-body text-center">
+						<h6><i class="bi bi-database icon"></i>Całkowite Zużycie</h6>
+						<h3 id="totalAll"></h3>
+						<p>Średnio <span id="averageAllMbps"></span> Mbps</p>
+						<p><span id="totalAllCount"></span> pakietów</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-center mt-4">
+			<button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#statementModal"><i class="bi bi-file-earmark-text icon"></i>Generuj Wyciąg</button>
+			<a href="/logout" class="btn btn-outline-danger" onclick="return confirm('Czy na pewno chcesz się wylogować? Do ponownego logowania będzie potrzebny token.')"><i class="bi bi-box-arrow-right icon"></i>Wyloguj</a>
+		</div>
+		{% include "partials/statement_modal.html" %}
+	</div>
+{% endblock %}
+{% block scripts %}
+	<script>
+		window.APP_CONFIG = {
+			mapping: {{ mapping|tojson }},
+			periods: {{ periods|tojson }}
+		};
+	</script>
+	<script src="{{ url_for('static', path='js/core.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-jose
+pydantic
+pydantic-settings
+sqlalchemy
+routeros-api
+apscheduler
+jinja2
+pymysql
