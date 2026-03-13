@@ -46,4 +46,4 @@ async def dashboard(request: Request):
 	user = await get_current_user_or_none(request)
 	if not user:
 		return RedirectResponse(url="/login", status_code=303)
-	return templates.TemplateResponse("pages/index.html", { "request": request, "periods": PERIODS, "mapping": PERIOD_LABELS, })
+	return templates.TemplateResponse("pages/index.html", { "request": request, "periods": PERIODS, "mapping": PERIOD_LABELS })

@@ -48,4 +48,9 @@ body {
 [data-theme="dark"] .icon {
 	color: #ffc107 !important;
 }
+
+[data-theme="dark"] .form-card .form-control {
+	background-color: #23272b !important;
+	color: #e6e6e6 !important;
+	border-color: #343a40 !important;
 }

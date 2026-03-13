@@ -1,3 +1,4 @@
+import os
 import logging
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
@@ -28,6 +29,8 @@ def start_scheduler():
 			coalesce=True,
 		)
 	if not scheduler.running:
+		if "INVOCATION_ID" in os.environ:
+			logging.getLogger("apscheduler").setLevel(logging.WARNING)
 		scheduler.start()
 
 def stop_scheduler():

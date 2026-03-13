@@ -13,7 +13,7 @@
 		{% else %}
 			<div class="header">
 				<img src="{{ request.url_for('static', path='billing.png') }}" alt="Logo billingowe">
-				<h1>Wyciąg Danych LTE/5G</h1>
+				<h1>Wyciąg Danych</h1>
 				<p>Monitorowanie Ruchu Sieciowego</p>
 			</div>
 			<div class="period">
@@ -57,7 +57,7 @@
 				<p>Całkowite pakiety łącznie: {{ total_packets }}</p>
 			</div>
 			<div class="footer">
-				<p>Wyciąg wygenerowany przez system Monitorowania Ruchu LTE/5G | {{ generated_at|datetimeformat('%Y-%m-%d %H:%M:%S') }}</p>
+				<p>Wyciąg wygenerowany {{ generated_at|datetimeformat('%Y-%m-%d %H:%M:%S') }}</p>
 			</div>
 			<div class="print-btn">
 				<button onclick="window.print()">Drukuj</button>
