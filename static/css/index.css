@@ -40,6 +40,46 @@ body {
 	margin-right: 8px;
 }
 
+[data-theme="dark"] {
+	--bg: #181a1b;
+	--text: #e6e6e6;
+	--card: #23272b;
+	--border: #343a40;
+	--primary: #0d6efd;
+	--success: #198754;
+	--warning: #ffc107;
+	--info: #0dcaf0;
+}
+
+[data-theme="dark"] body {
+	background-color: var(--bg) !important;
+	color: var(--text) !important;
+}
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .form-card,
+[data-theme="dark"] .modal-content {
+	background: var(--card) !important;
+	color: var(--text) !important;
+	border-color: var(--border) !important;
+}
+[data-theme="dark"] .bg-primary { background-color: var(--primary) !important; }
+[data-theme="dark"] .bg-success { background-color: var(--success) !important; }
+[data-theme="dark"] .bg-warning { background-color: var(--warning) !important; }
+[data-theme="dark"] .bg-info { background-color: var(--info) !important; }
+[data-theme="dark"] .text-white { color: var(--text) !important; }
+[data-theme="dark"] .form-control, [data-theme="dark"] .form-select {
+	background: var(--card) !important;
+	color: var(--text) !important;
+	border-color: var(--border) !important;
+}
+[data-theme="dark"] .btn-outline-secondary {
+	color: var(--text) !important;
+	border-color: var(--border) !important;
+}
+[data-theme="dark"] .btn-outline-secondary:hover {
+	background: var(--border) !important;
+}
+
 .modal-content {
 	border-radius: 12px;
 }

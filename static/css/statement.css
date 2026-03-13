@@ -78,6 +78,19 @@ td:first-child {
 }
 
 .footer {
+
+[data-theme="dark"] body {
+	background-color: #181a1b !important;
+	color: #e6e6e6 !important;
+}
+[data-theme="dark"] table {
+	background: #23272b !important;
+	color: #e6e6e6 !important;
+	border-color: #343a40 !important;
+}
+[data-theme="dark"] th, [data-theme="dark"] td {
+	border-color: #343a40 !important;
+}
 	text-align: center;
 	margin-top: 30px;
 	font-size: 11px;
